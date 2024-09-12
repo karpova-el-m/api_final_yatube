@@ -5,6 +5,7 @@ User = get_user_model()
 
 
 class Group(models.Model):
+    """Модель Group."""
     title = models.CharField(max_length=200)
     slug = models.SlugField(unique=True)
     description = models.TextField()
@@ -14,6 +15,7 @@ class Group(models.Model):
 
 
 class Post(models.Model):
+    """Модель Post."""
     text = models.TextField()
     pub_date = models.DateTimeField('Дата публикации', auto_now_add=True)
     author = models.ForeignKey(
@@ -30,6 +32,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
+    """Модель Comment."""
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='comments')
     post = models.ForeignKey(
@@ -40,8 +43,14 @@ class Comment(models.Model):
 
 
 class Follow(models.Model):
+    """Модель Follow."""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    following = models.ForeignKey(User, on_delete=models.CASCADE, related_name='following', null=True)
+    following = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='following',
+        null=True
+    )
 
     class Meta:
         constraints = [
@@ -50,8 +59,6 @@ class Follow(models.Model):
                 name='unique_following_combination'
             )
         ]
-    # class Meta():
-    #     unique_together = ('user', 'following')
 
     def __str__(self):
         return f'{self.user} follows: {self.following}'
