@@ -44,11 +44,15 @@ class Comment(models.Model):
 
 class Follow(models.Model):
     """Модель Follow."""
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='following'
+    )
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='following',
+        related_name='who_follows',
         null=True
     )
 

@@ -1,7 +1,12 @@
 from django.urls import include, path
 from rest_framework.routers import SimpleRouter
 
-from .views import CommentViewSet, FollowViewSet, GroupViewSet, PostViewSet
+from .views import (
+    CommentViewSet,
+    FollowCreateListViewSet,
+    GroupViewSet,
+    PostViewSet
+)
 
 app_name = 'posts'
 
@@ -14,7 +19,7 @@ router_v1.register(
     CommentViewSet,
     basename='comments'
 )
-router_v1.register('follow', FollowViewSet, basename='follow')
+router_v1.register('follow', FollowCreateListViewSet, basename='follow')
 
 urlpatterns = [
     path('v1/', include(router_v1.urls)),
